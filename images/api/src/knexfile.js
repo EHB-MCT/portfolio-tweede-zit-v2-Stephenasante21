@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 module.exports = {
     development: {
         client: 'pg',
@@ -9,10 +11,10 @@ module.exports = {
         },
         migrations: {
             tableName: 'knex_migrations',
-            directory: './src/db/migrations',
+            directory: './db/migrations',
         },
         seeds: {
-            directory: './src/db/seeds',
+            directory: './db/seeds',
         },
         useNullAsDefault: true,
     },
