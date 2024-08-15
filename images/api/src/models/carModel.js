@@ -1,4 +1,4 @@
-const knex = require('../db/knex');
+const knex = require('../db/seeds/knexfile')
 
 exports.getAll = () => {
     return knex('cars').select('*');

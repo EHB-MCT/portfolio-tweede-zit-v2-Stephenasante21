@@ -6,7 +6,8 @@
   "scripts": {
     "start": "npm run migrate && nodemon src/index.js --legacy-watch",
     "migrate": "npx knex migrate:latest --cwd src",
-    "test": "echo\"Error: no test specified\" && exit 1"
+    "seed": "knex seed:run --knexfile src/db/seeds/knexfile.js",
+    "test": "jest --watchAll"
   },
   "keywords": [],
   "author": "",
@@ -17,5 +18,8 @@
     "express": "^4.19.2",
     "knex": "^3.1.0",
     "pg": "^8.12.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }
