@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+
+## [Unreleased]
+
+### Added
+- **CI/CD Pipeline**: Implemented Continuous Integration and Continuous Deployment using GitHub Actions.
+  - The pipeline automatically runs tests on every push and pull request to the `main` and `develop` branches.
+  - PostgreSQL service is configured in the CI environment to allow running integration tests.
+  - Node.js setup is automated to install dependencies and run tests.
+  - Automated database migrations and seed executions are included in the CI pipeline.
+- **Docker Support**: Improved Docker Compose setup for easier local development and testing.
+  - Rebuilt Docker containers to handle PostgreSQL initialization issues and ensure a clean database state for every test run.
+
+
 ## [Unreleased]
 
 ### Added

@@ -1,0 +1,55 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: example
+          POSTGRES_PASSWORD: example
+          POSTGRES_DB: test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U example"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+        volumes:
+          - ./postgres-data:/var/lib/postgresql/data
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run Migrations
+      run: npx knex migrate:latest --env test
+
+    - name: Seed Database
+      run: npx knex seed:run --env test
+
+    - name: Run Tests
+      env:
+        NODE_ENV: test
+      run: npm test
