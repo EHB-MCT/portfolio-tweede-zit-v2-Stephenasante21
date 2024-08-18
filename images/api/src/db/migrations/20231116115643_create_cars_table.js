@@ -4,7 +4,6 @@ exports.up = function(knex) {
         table.string('make').notNullable();
         table.string('model').notNullable();
         table.integer('year').notNullable();
-        table.timestamps(true, true);
     });
 };
 

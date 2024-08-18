@@ -2,24 +2,29 @@
   "name": "portfolio-tweede-zit-v2-stephenasante21",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "npm run migrate && nodemon src/index.js --legacy-watch",
-    "migrate": "npx knex migrate:latest --cwd src",
-    "seed": "knex seed:run --knexfile src/db/seeds/knexfile.js",
-    "test": "jest --watchAll"
+    "start": "npx knex migrate:latest --cwd ./src/db && npm run test && nodemon src/index.js",
+    "test": "jest --detectOpenHandles",
+    "test-watch": "jest --watchAll --detectOpenHandles",
+    "dev": "npx knex migrate:latest --cwd ./src/db && npx knex seed:run --cwd ./src/db && npm run test-watch"
+
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "assert": "^2.1.0",
     "body-parser": "^1.20.2",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "knex": "^3.1.0",
-    "pg": "^8.12.0"
+    "pg": "^8.12.0",
+    "supertest": "^7.0.0"
   },
   "devDependencies": {
-    "jest": "^29.7.0"
+    "jest": "^29.7.0",
+    "assert": "^2.1.0",
+    "supertest": "^7.0.0"
   }
 }

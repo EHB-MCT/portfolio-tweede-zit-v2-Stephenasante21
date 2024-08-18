@@ -1,4 +1,5 @@
-const knex = require('../db/seeds/knexfile')
+const knexConfig = require('../db/knexfile')["development"];
+const knex = require('knex')(knexConfig);
 
 exports.getAll = () => {
     return knex('cars').select('*');
@@ -9,11 +10,15 @@ exports.getById = (id) => {
 };
 
 exports.add = (car) => {
-    return knex('cars').insert(car).returning('*');
+    return knex('cars').insert(car).returning('*').then(rows => rows[0]);
 };
 
 exports.update = (id, car) => {
-    return knex('cars').where({ id }).update(car).returning('*');
+    return knex('cars')
+        .where({ id })
+        .update(car)
+        .returning('*')
+        .then(rows => rows[0]);  
 };
 
 exports.remove = (id) => {

@@ -15,8 +15,13 @@ exports.getCarById = async (req, res) => {
 };
 
 exports.addCar = async (req, res) => {
-    const newCar = req.body;
-    const car = await Car.add(newCar);
+    const { make, model, year } = req.body;
+
+    if (!make || !model || !year) {
+        return res.status(400).json({ error: 'Make, model, and year are required' });
+    }
+
+    const car = await Car.add(req.body);
     res.status(201).json(car);
 };
 
