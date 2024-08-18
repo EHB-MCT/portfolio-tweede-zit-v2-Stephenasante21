@@ -1,6 +1,5 @@
 const carModel = require('../../models/carModel');
 
-// Mock the carModel methods
 jest.mock('../../models/carModel', () => ({
     getAll: jest.fn(),
     getById: jest.fn(),
@@ -11,7 +10,6 @@ jest.mock('../../models/carModel', () => ({
 
 describe('Car Model Tests', () => {
     beforeEach(() => {
-        // Clear all instances and calls to constructor and all methods:
         jest.clearAllMocks();
     });
 
@@ -62,33 +60,16 @@ describe('Car Model Tests', () => {
     test('should handle adding a car with duplicate data', async () => {
         const car = { make: 'Toyota', model: 'Corolla', year: 2020 };
     
-        // First call returns ID 1
         carModel.add.mockResolvedValueOnce([{ ...car, id: 1 }]);
     
-        // Second call returns ID 2
         carModel.add.mockResolvedValueOnce([{ ...car, id: 2 }]);
     
         const result1 = await carModel.add(car);
         const result2 = await carModel.add(car);
     
-        expect(result1[0].id).not.toBe(result2[0].id); // IDs should be different
+        expect(result1[0].id).not.toBe(result2[0].id);
         expect(carModel.add).toHaveBeenCalledTimes(2);
     });
-    
-
-    /*test('should throw an error when adding a car with duplicate data', async () => {
-        const car = { make: 'Toyota', model: 'Corolla', year: 2020 };
-    
-        // First call returns successfully
-        carModel.add.mockResolvedValue([{ ...car, id: 1 }]);
-    
-        // Second call throws an error, simulating duplicate rejection
-        carModel.add.mockRejectedValue(new Error('Duplicate entry'));
-    
-        await carModel.add(car); // First add should succeed
-        await expect(carModel.add(car)).rejects.toThrow('Duplicate entry'); // Second should fail
-        expect(carModel.add).toHaveBeenCalledTimes(2);
-    });*/
     
     test('should return 0 when deleting a non-existent car', async () => {
         const nonExistentId = 9999;
@@ -129,7 +110,7 @@ describe('Car Model Tests', () => {
     });
 
     test('should return null when getting a car by an invalid ID', async () => {
-        const invalidId = 'abc'; // Non-numeric ID
+        const invalidId = 'abc';
         carModel.getById.mockResolvedValue(null);
 
         const result = await carModel.getById(invalidId);

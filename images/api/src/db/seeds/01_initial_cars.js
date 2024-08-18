@@ -1,5 +1,4 @@
 exports.seed = async function(knex) {  
-    // Inserts seed entries
     await knex('cars').insert([
       { make: 'Toyota', model: 'Corolla', year: 2020 },
       { make: 'Honda', model: 'Civic', year: 2018 },
